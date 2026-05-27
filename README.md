@@ -1,4 +1,4 @@
-# JnJ's Sando Bando - Point of Sale (POS) Application
+# J-n-J's Sando Bando 
 
 Welcome to **JnJ's Sando Bando**, a custom terminal-based Point of Sale (POS) application engineered to take our sando shop operations to the next level. This system transitions our business from manual paper tickets to a streamlined, automated checkout process, allowing customers to fully customize their sandos, select sides, calculate accurate totals, and automatically generate receipts.
 
