@@ -1,4 +1,4 @@
-package com.pluralsight.deli;
+package com.pluralsight.deli.data;
 
 public class PriceConstants {
     // Bread base pricing index mapped to sizes: 4", 8", 12"

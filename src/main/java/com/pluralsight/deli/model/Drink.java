@@ -1,4 +1,7 @@
-package com.pluralsight.deli;
+package com.pluralsight.deli.model;
+
+import com.pluralsight.deli.data.OrderItem;
+import com.pluralsight.deli.data.PriceConstants;
 
 public class Drink implements OrderItem {
     private String size;

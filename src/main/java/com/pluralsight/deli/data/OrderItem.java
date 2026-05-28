@@ -1,4 +1,4 @@
-package com.pluralsight.deli;
+package com.pluralsight.deli.data;
 
 public interface OrderItem {
     double getPrice();

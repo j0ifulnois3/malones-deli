@@ -1,4 +1,4 @@
-package com.pluralsight.deli;
+package com.pluralsight.deli.ui;
 
 public class App {
     public static void main(String[] args) {

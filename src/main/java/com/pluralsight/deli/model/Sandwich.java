@@ -1,12 +1,18 @@
-public class Sandwich implements OrderItem {
-    // 1. Exact match to UML variables
-    private int size;
-    private String bread; // Changed from breadType
-    private boolean isToasted;
-    private List<String> toppings; // Single consolidated list for meats, cheeses, and veggies
-    private List<String> sauces;   // Explicit list for sauces
+package com.pluralsight.deli.model;
+import com.pluralsight.deli.data.OrderItem;
 
-    // Extra lists to track upcharges (can be left private/internal to calculate price)
+import java.util.list;
+import java.util.ArrayList;
+
+public class Sandwich implements OrderItem {
+
+    private int size;
+    private String bread;
+    private boolean isToasted;
+    private List<String> toppings;
+    private List<String> sauces;
+
+
     private List<String> extraMeats;
     private List<String> extraCheeses;
 
@@ -42,8 +48,8 @@ public class Sandwich implements OrderItem {
 
     // Internal upcharge calculations stay safely tucked inside getPrice()
     @Override
-    public double getPrice() { ... }
+    public double getPrice() { }
 
     @Override
-    public String getDescription() { ... }
+    public String getDescription() { }
 }

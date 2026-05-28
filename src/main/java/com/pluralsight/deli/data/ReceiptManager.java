@@ -1,4 +1,6 @@
-package com.pluralsight.deli;
+package com.pluralsight.deli.data;
+
+import com.pluralsight.deli.model.Order;
 
 import java.io.BufferedWriter;
 import java.io.File;

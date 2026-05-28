@@ -1,4 +1,10 @@
-package com.pluralsight.deli;
+package com.pluralsight.deli.ui;
+
+import com.pluralsight.deli.data.ReceiptManager;
+import com.pluralsight.deli.model.Chips;
+import com.pluralsight.deli.model.Drink;
+import com.pluralsight.deli.model.Order;
+import com.pluralsight.deli.model.Sandwich;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -149,7 +155,7 @@ public class UserInterface {
         }
         printLiveCart(s);
 
-        System.out.print("Add extra cheese? Why not make it an Ultrafeast ? (yes/no): ");
+        System.out.print("Add extra cheese? (yes/no): ");
         if (scanner.nextLine().equalsIgnoreCase("yes")) {
             System.out.println("\nSelect extra cheese type to stack:");
             for (int i = 0; i < cheesesList.length; i++) {
