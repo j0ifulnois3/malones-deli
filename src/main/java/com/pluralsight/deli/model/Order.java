@@ -9,7 +9,7 @@ public class Order {
     private List<OrderItem> items = new ArrayList<>();
 
     public void addItem(OrderItem item) { this.items.add(item); }
-    public int getItemCount() { return items.size(); }
+    public int getItemCount()           { return items.size(); }
 
     public double calculateTotal() {
         double total = 0;
@@ -17,6 +17,20 @@ public class Order {
         return total;
     }
 
+    // Returns a plain name-only list for the customer slip and receipt note
+    public List<String> getItemNames() {
+        List<String> names = new ArrayList<>();
+        for (OrderItem item : items) {
+            // getDescription() returns the full line — grab just the first line
+            // (before any newline) so it stays compact on the slip
+            String desc = item.getDescription();
+            String firstLine = desc.split("\n")[0].trim();
+            names.add(firstLine);
+        }
+        return names;
+    }
+
+    // Full detailed breakdown used for internal/staff copy
     public String getOrderDetails() {
         StringBuilder sb = new StringBuilder();
         sb.append("===================================\n");

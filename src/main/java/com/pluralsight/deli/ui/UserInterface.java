@@ -29,7 +29,7 @@ public class UserInterface {
                 currentOrder = new Order();
                 displayOrderScreen();
             } else if (choice.equals("0")) {
-                System.out.println("\nThanks for stopping by Malone's Deli!");
+                System.out.println("\nThanks for stopping by Malone's Deli! We'll catch you on the flippity flip.");
                 break;
             }
         }
@@ -40,7 +40,7 @@ public class UserInterface {
             System.out.println("\n-------------------------------------------------");
             System.out.println("   MAIN SELECTION MENU");
             System.out.println("-------------------------------------------------");
-            System.out.println("1) Build Sando");
+            System.out.println("1) ");
             System.out.println("2) Breakroom Vending Machines (Drinks & Chips)");
             System.out.println("3) Complete & Pay");
             System.out.println("0) Cancel Order");
@@ -90,7 +90,7 @@ public class UserInterface {
 
         int size = 4;
         System.out.println("Select Size:");
-        System.out.println("1) 4\" The Little Howard\n2) 8\" The Halpert\n3) 12\" The Big Tuna");
+        System.out.println("1) 4\" Baby Halpert\n2) 8\" Just Jim\n3) 12\" The Big Tuna");
         System.out.print("Selection: ");
         String sizeChoice = scanner.nextLine();
         if (sizeChoice.equals("2")) size = 8;
@@ -209,7 +209,7 @@ public class UserInterface {
         }
         printLiveCart(s);
 
-        System.out.print("Toasted? ON THE JOB ! >:0 (yes/no): ");
+        System.out.print("Toasted? (yes/no): ");
         s.setToasted(scanner.nextLine().equalsIgnoreCase("yes"));
         printLiveCart(s);
 
@@ -227,14 +227,14 @@ public class UserInterface {
         else if (sizeChoice.equals("3")) size = "Large";
 
         System.out.println("\nSelect Flavor:");
-        System.out.println("1) Beet Juice\n2) Ice Cold Coffee \n3) Oscar's Tears\n4) Wine from Robert California's Cellar");
+        System.out.println("1) Schrute Farms Beet Juice (Fruit Punch)\n2) Ice Cold Coffee (Dr.Pepper) \n3) Ryan's Tears (Water)\n4) Wine from Robert California's Cellar (Grape Soda)");
         System.out.print("Selection: ");
         String flavorChoice = scanner.nextLine();
-        String flavor = "Grape Soda";
+        String flavor = "Fruit Punch";
         switch (flavorChoice) {
-            case "2" -> flavor = "Orange Soda";
-            case "3" -> flavor = "Root Beer";
-            case "4" -> flavor = "Celcius Energy Drink";
+            case "2" -> flavor = "Dr. Pepper";
+            case "3" -> flavor = "Water";
+            case "4" -> flavor = "Grape Soda";
         }
 
         currentOrder.addItem(new Drink(size, flavor));
@@ -263,36 +263,67 @@ public class UserInterface {
             return false;
         }
 
-        // 1. Clear terminal workspace using explicit page breaks
+        // ─── PAGE 1: PAYMENT PROCESSING + FULL ORDER DETAILS ───────────────────
         System.out.println("\n\n\n\n\n");
-        System.out.println("-------------------------------------------------");
+        System.out.println("=================================================");
         System.out.println("   PROCESSING PAYMENT...                         ");
-        System.out.println("-------------------------------------------------\n");
+        System.out.println("=================================================\n");
 
-        // 2. Automatically save receipt in background (Ensure ReceiptManager does not have a print statement inside it)
-        ReceiptManager.saveReceipt(currentOrder);
-
-        // 3. Print final customer invoice panel
         System.out.print(currentOrder.getOrderDetails());
 
-        // 4. Generate timestamp calculations
+        System.out.println("=================================================");
+        System.out.print("  Confirm order and process payment? (yes/no): ");
+        String confirm = scanner.nextLine().trim().toLowerCase();
+
+        if (!confirm.equals("yes")) {
+            System.out.println("\nOrder cancelled. Returning to the Annex.");
+            return false;
+        }
+
+        // ─── PAGE 2: ORDER RECEIVED SLIP ───────────────────────────────────────
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime readyTime = now.plusMinutes(10);
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hh:mm a");
 
+        // Generate a short confirmation ID from the timestamp
+        DateTimeFormatter idFormat = DateTimeFormatter.ofPattern("MMddHHmm");
+        String confirmationID = "#" + now.format(idFormat);
+
+        // Save the full receipt file in the background
+        ReceiptManager.saveReceipt(currentOrder, confirmationID, now);
+
+        System.out.println("\n\n\n\n\n");
         System.out.println("=================================================");
-        System.out.println("  ORDER RECEIVED!                                ");
+        System.out.println("         ORDER RECEIVED — HERE'S YOUR SLIP       ");
         System.out.println("=================================================");
-        System.out.printf("  Order Time:   %s\n", now.format(timeFormat));
-        System.out.printf("  Estimated Ready Time: %s (In 10 mins)\n", readyTime.format(timeFormat));
+        System.out.println("  Confirmation:  " + confirmationID);
+        System.out.printf( "  Order Time:    %s%n", now.format(timeFormat));
+        System.out.printf( "  Pickup By:     %s  (approx. 10 mins)%n", readyTime.format(timeFormat));
         System.out.println("-------------------------------------------------");
-        System.out.println("  We are assembling your order right now.        ");
-        System.out.println("  \"And that... is Dallas.\" See you at counter!  ");
+        // Print itemized list (no prices)
+        System.out.println("  Your order:");
+        for (String line : currentOrder.getItemNames()) {
+            System.out.println("    - " + line);
+        }
+        System.out.println("-------------------------------------------------");
+        System.out.printf( "  TOTAL DUE:     $%.2f%n", currentOrder.calculateTotal());
+        System.out.println("=================================================");
+        System.out.println("  Hold onto this slip & present at the counter.  ");
         System.out.println("=================================================");
 
-        // 5. Block the loop from progressing automatically back to the main menu
-        System.out.println("\nThank you for choosing Malone's Deli ! We'll catch you on the flippity flip !");
-        System.out.print("Press ENTER to return to the Annex.");
+        System.out.print("\nStaff: Press ENTER to confirm customer pickup.");
+        scanner.nextLine();
+
+        // ─── PAGE 3: THANK YOU ─────────────────────────────────────────────────
+        System.out.println("\n\n\n\n\n");
+        System.out.println("=================================================");
+        System.out.println("           THANKS FOR VISITING !                 ");
+        System.out.println("=================================================");
+        System.out.println("  \"And that... is Dallas.\"                       ");
+        System.out.println("                                                  ");
+        System.out.println("  We'll catch you on the flippity flip !          ");
+        System.out.println("=================================================");
+        System.out.print("\nPress ENTER to return to the Annex.");
         scanner.nextLine();
 
         return true;

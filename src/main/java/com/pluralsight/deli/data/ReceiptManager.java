@@ -11,24 +11,39 @@ import java.time.format.DateTimeFormatter;
 
 public class ReceiptManager {
 
-    public static void saveReceipt(Order order) {
-        // Create the receipts folder if it doesn't exist
+    public static void saveReceipt(Order order, String confirmationID, LocalDateTime now) {
+        // Create receipts folder if it doesn't exist
         File directory = new File("receipts");
         if (!directory.exists()) {
             directory.mkdir();
         }
 
-        // Generate filename using the current timestamp format: yyyyMMdd-HHmmss.txt
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
-        String filename = "receipts/" + now.format(formatter) + ".txt";
+        // File named by timestamp: yyyyMMdd-HHmmss.txt
+        DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
+        String filename = "receipts/" + now.format(fileFormat) + ".txt";
 
-        // Write the order details straight to the text file
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hh:mm a");
+        LocalDateTime readyTime = now.plusMinutes(10);
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            writer.write(order.getOrderDetails());
-            System.out.println("\nReceipt successfully saved to: " + filename);
+
+            writer.write("=================================\n");
+            writer.write("      MALONE'S DELI — RECEIPT    \n");
+            writer.write("=================================\n");
+            writer.write("  Confirmation:  " + confirmationID + "\n");
+            writer.write("  Order Time:    " + now.format(timeFormat) + "\n");
+            writer.write("  Pickup By:     " + readyTime.format(timeFormat) + "\n");
+            writer.write("---------------------------------\n");
+            writer.write("  Items Ordered:\n");
+            for (String name : order.getItemNames()) {
+                writer.write("    - " + name + "\n");
+            }
+            writer.write("---------------------------------\n");
+            writer.write(String.format("  TOTAL DUE:  $%.2f%n", order.calculateTotal()));
+            writer.write("=================================\n");
+
         } catch (IOException e) {
-            System.out.println("Error generating receipt file: " + e.getMessage());
+            System.out.println("Error saving receipt: " + e.getMessage());
         }
     }
 }
