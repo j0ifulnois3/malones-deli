@@ -66,3 +66,8 @@ When you complete an order, the screen displays a ticket that looks like this[ci
 ----------------------------------------------------------
   TOTAL PAID:    $14.75
 ==========================================================
+
+```
+
+## Program Diagram 
+![MalonesDeliDiagram.png](MalonesDeliDiagram.png)
