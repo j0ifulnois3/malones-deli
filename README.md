@@ -2,29 +2,29 @@
 
 > "Why waste time say lot word when few word do trick?" — Kevin Malone
 
-Welcome to **Malone's Deli**, a simple console-based program where you can customize sandwich orders, add drinks or chips, and print out a receipt[cite: 2]. The whole app is themed after *The Office*[cite: 2]!
+Welcome to **Malone's Deli**, a simple console-based program where you can customize sandwich orders, add drinks or chips, and print out a receipt. The whole app is themed after *The Office* !
 
 ---
 
 ## 🚀 App Features
 
 ### 1. Custom Sandwich Configurator
-You can build a custom sandwich from scratch step-by-step[cite: 2]:
-* **Sizes:** 4" Baby Halpert, 8" Just Jim, or a 12" The Big Tuna[cite: 2].
-* **Bread Types:** White, Wheat, Rye, or a Wrap[cite: 2].
-* **Premium Meats:** Steak, Ham, Salami, Roast Beef, Turkey, or Chicken (or pick option 7 for "The Martin" to skip meat)[cite: 2].
-* **Extra Meat & Cheese:** You can say "yes" to add extra meat or extra cheese to stack your sandwich higher[cite: 2].
-* **Veggies & Sauces:** You can type multiple numbers separated by commas (like `1,2,5`) to add multiple toppings at the same time[cite: 2].
-* **Toasting:** Choose whether you want the sandwich toasted or not[cite: 2].
+You can build a custom sandwich from scratch step-by-step:
+* **Sizes:** 4" Baby Halpert, 8" Just Jim, or a 12" The Big Tuna.
+* **Bread Types:** White, Wheat, Rye, or a Wrap.
+* **Premium Meats:** Steak, Ham, Salami, Roast Beef, Turkey, or Chicken (or pick option 7 for "The Martin" to skip meat).
+* **Extra Meat & Cheese:** You can say "yes" to add extra meat or extra cheese to stack your sandwich higher.
+* **Veggies & Sauces:** You can type multiple numbers separated by commas (like `1,2,5`) to add multiple toppings at the same time.
+* **Toasting:** Choose whether you want the sandwich toasted or not.
 
 ### 2. Breakroom Vending Machines
-You can add extra items to your order tray[cite: 2]:
-* **Cold Drinks:** Pick a size (`Scott's Tot`, `The Toby`, or `Did I Stutter?!`) and flavors like *Schrute Farms Beet Juice* or *Ryan's Tears*[cite: 2].
-* **Bags of Chips:** Grab *Prison Mike Salted*, *Scranton Strangler Jalapeno*, *Mose's Mesquite BBQ*, or *Jan's Baked Apple Chips*[cite: 2].
+You can add extra items to your order tray:
+* **Cold Drinks:** Pick a size (`Scott's Tot`, `The Toby`, or `Did I Stutter?!`) and flavors like *Schrute Farms Beet Juice* or *Ryan's Tears*.
+* **Bags of Chips:** Grab *Prison Mike Salted*, *Scranton Strangler Jalapeno*, *Mose's Mesquite BBQ*, or *Jan's Baked Apple Chips*.
 
 ### 3. Checkout Screen
-* Shows you the full order details and the final calculated total price[cite: 2].
-* If you type "yes" to confirm, it creates a custom ticket ID using the date and time, saves a copy of the receipt to a file, and prints a final pickup ticket[cite: 2].
+* Shows you the full order details and the final calculated total price.
+* If you type "yes" to confirm, it creates a custom ticket ID using the date and time, saves a copy of the receipt to a file, and prints a final pickup ticket.
 
 ---
 
@@ -32,10 +32,10 @@ You can add extra items to your order tray[cite: 2]:
 
 Here is a simple breakdown of what each Java file does in this project:
 
-* **`UserInterface.java`**: Handles all the `System.out.println()` menus and uses a `Scanner` to read your choices and inputs[cite: 2].
-* **`Order.java`**: Acts like a shopping cart. It holds a list of all the items you want to buy and handles adding items and calculating the total price[cite: 2].
-* **`Sandwich.java`**, **`Drink.java`**, and **`Chips.java`**: These are the blueprints for the food items. They hold the variables (like size, bread type, or flavor) and calculate their own individual costs[cite: 2].
-* **`ReceiptManager.java`**: Handles writing and saving the final order details into a text file so you have a saved record of the transaction[cite: 2].
+* **`UserInterface.java`**: Handles all the `System.out.println()` menus and uses a `Scanner` to read your choices and inputs.
+* **`Order.java`**: Acts like a shopping cart. It holds a list of all the items you want to buy and handles adding items and calculating the total price.
+* **`Sandwich.java`**, **`Drink.java`**, and **`Chips.java`**: These are the blueprints for the food items. They hold the variables (like size, bread type, or flavor) and calculate their own individual costs.
+* **`ReceiptManager.java`**: Handles writing and saving the final order details into a text file so you have a saved record of the transaction.
 
 ---
 
