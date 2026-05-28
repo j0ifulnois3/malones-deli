@@ -1,0 +1,14 @@
+=================================
+      MALONE'S DELI — RECEIPT    
+=================================
+  Confirmation:  #05281345
+  Order Time:    01:45 PM
+  Pickup By:     01:55 PM
+---------------------------------
+  Items Ordered:
+    - 12" White Sandwich [TOASTED] - $15.25
+    - Large Dr. Pepper Drink - $3.00
+    - Scranton Strangler Jalapeno Chips - $1.50
+---------------------------------
+  TOTAL DUE:  $19.75
+=================================

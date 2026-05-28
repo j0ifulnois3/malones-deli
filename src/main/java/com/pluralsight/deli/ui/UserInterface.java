@@ -16,90 +16,110 @@ public class UserInterface {
 
     public void displayHomeScreen() {
         while (true) {
-            System.out.println("\n\n\n\n\n");
-            System.out.println("=================================================");
-            System.out.println("  MALONE'S DELI                                  ");
-            System.out.println("  \"Why waste time say lot word?\"                 ");
-            System.out.println("=================================================");
-            System.out.println("1) New Order");
-            System.out.println("0) Exit");
-            System.out.print("Selection: ");
+            // Replaced the blind newlines with a neat, intentional header block
+            System.out.println("""
+                
+                ==========================================================
+                                MALONE'S DELI TERMINAL
+                ==========================================================
+                     "Why waste time say lot word when few word do trick?"
+                ----------------------------------------------------------
+                 [1] New Order
+                 [0] Exit Application
+                ==========================================================
+                """);
+            System.out.print(" Selection: ");
             String choice = scanner.nextLine();
             if (choice.equals("1")) {
                 currentOrder = new Order();
                 displayOrderScreen();
             } else if (choice.equals("0")) {
-                System.out.println("\nThanks for stopping by Malone's Deli! We'll catch you on the flippity flip.");
+                System.out.println("\n Thanks for stopping by Malone's Deli! We'll catch you on the flippity flip.\n");
                 break;
+            } else {
+                printInvalidNotice();
             }
         }
     }
 
     private void displayOrderScreen() {
         while (true) {
-            System.out.println("\n-------------------------------------------------");
-            System.out.println("   MAIN SELECTION MENU");
-            System.out.println("-------------------------------------------------");
-            System.out.println("1) ");
-            System.out.println("2) Breakroom Vending Machines (Drinks & Chips)");
-            System.out.println("3) Complete & Pay");
-            System.out.println("0) Cancel Order");
-            System.out.print("Selection: ");
+            System.out.println("""
+                
+                ==========================================================
+                                  MAIN SELECTION MENU
+                ==========================================================
+                 [1] Create your Ultra-Feast (Build Your Sandwich)
+                 [2] Breakroom Vending Machines (Select Drinks & Chips)
+                 [3] Complete & Pay (Review Tray and Complete Purchase)
+                 [0] Cancel Order
+                ==========================================================
+                """);
+            System.out.print(" Selection: ");
             String choice = scanner.nextLine();
             if (choice.equals("1")) addSandwichScreen();
             else if (choice.equals("2")) displayVendingMachineMenu();
             else if (choice.equals("3")) {
                 if (checkoutScreen()) return;
             } else if (choice.equals("0")) {
-                System.out.println("\nOrder cancelled.");
+                System.out.println("\n [!] Order cancelled. Returning to the main menu.");
                 return;
+            } else {
+                printInvalidNotice();
             }
         }
     }
 
     private void displayVendingMachineMenu() {
         while (true) {
-            System.out.println("\n-------------------------------------------------");
-            System.out.println("   BREAKROOM VENDING MACHINES");
-            System.out.println("-------------------------------------------------");
-            System.out.println("1) Purchase a Cold Drink");
-            System.out.println("2) Purchase a Bag of Chips");
-            System.out.println("0) Back to Main Menu");
-            System.out.print("Selection: ");
+            System.out.println("""
+                
+                ==========================================================
+                                BREAKROOM VENDING MACHINES
+                ==========================================================
+                 [1] Purchase a Cold Drink
+                 [2] Purchase a Bag of Chips
+                 [0] Back to Main Menu
+                ==========================================================
+                """);
+            System.out.print(" Selection: ");
             String choice = scanner.nextLine();
 
             if (choice.equals("1")) addDrinkScreen();
             else if (choice.equals("2")) addChipsScreen();
             else if (choice.equals("0")) break;
-            else System.out.println("Invalid selection.");
+            else printInvalidNotice();
         }
     }
 
     private void printLiveCart(Sandwich s) {
-        System.out.println("\n=================================================");
-        System.out.println("           What's going on in the Warehouse ?      ");
-        System.out.println("=================================================");
+        System.out.println("\n ┌──────────────────────────────────────────────────────┐");
+        System.out.println("   SANDWICH BUILDER LIVE PREVIEW                        ");
+        System.out.println(" └──────────────────────────────────────────────────────┘");
         System.out.print(s.getDescription());
-        System.out.println("=================================================\n");
+        System.out.println(" ────────────────────────────────────────────────────────\n");
     }
 
     private void addSandwichScreen() {
-        System.out.println("\n-------------------------------------------------");
-        System.out.println("   SANDWICH CONFIGURATOR");
-        System.out.println("-------------------------------------------------");
+        System.out.println("""
+            
+            ==========================================================
+                               Build Your Sandwich
+            ==========================================================
+            """);
 
         int size = 4;
-        System.out.println("Select Size:");
-        System.out.println("1) 4\" Baby Halpert\n2) 8\" Just Jim\n3) 12\" The Big Tuna");
-        System.out.print("Selection: ");
+        System.out.println(" ── SELECT SIZE ──");
+        System.out.println("  [1] 4\" Baby Halpert\n  [2] 8\" Just Jim\n  [3] 12\" The Big Tuna");
+        System.out.print("\n Selection: ");
         String sizeChoice = scanner.nextLine();
         if (sizeChoice.equals("2")) size = 8;
         else if (sizeChoice.equals("3")) size = 12;
 
         String bread = "White";
-        System.out.println("\nSelect Bread Type:");
-        System.out.println("1) White\n2) Wheat\n3) Rye\n4) Wrap");
-        System.out.print("Selection: ");
+        System.out.println("\n ── SELECT BREAD TYPE ──");
+        System.out.println("  [1] White\n  [2] Wheat\n  [3] Rye\n  [4] Wrap");
+        System.out.print("\n Selection: ");
         String breadChoice = scanner.nextLine();
         switch (breadChoice) {
             case "2" -> bread = "Wheat";
@@ -113,12 +133,12 @@ public class UserInterface {
         String[] meatsList = {"Steak", "Ham", "Salami", "Roast Beef", "Turkey", "Chicken"};
         String[] cheesesList = {"American", "Provolone", "Cheddar", "Swiss"};
 
-        System.out.println("Select Base Premium Meat:");
+        System.out.println(" ── SELECT YOUR MEAT ──");
         for (int i = 0; i < meatsList.length; i++) {
-            System.out.printf("%d) %s\n", i + 1, meatsList[i]);
+            System.out.printf("  [%d] %s\n", i + 1, meatsList[i]);
         }
-        System.out.println("7) No Meat (The Martin)");
-        System.out.print("Selection: ");
+        System.out.println("  [7] No Meat (The Martin)");
+        System.out.print("\n Selection: ");
         String meatChoice = scanner.nextLine();
         int meatIdx = Integer.parseInt(meatChoice) - 1;
 
@@ -127,13 +147,13 @@ public class UserInterface {
         }
         printLiveCart(s);
 
-        System.out.print("Add extra meat? Florida Stanely approved portions, of course. (yes/no): ");
+        System.out.print(" Add extra meat? Florida Stanley approved portions, of course. (yes/no): ");
         if (scanner.nextLine().equalsIgnoreCase("yes")) {
-            System.out.println("\nSelect extra meat type to stack:");
+            System.out.println("\n ── STACK EXTRA MEAT ──");
             for (int i = 0; i < meatsList.length; i++) {
-                System.out.printf("%d) Extra %s\n", i + 1, meatsList[i]);
+                System.out.printf("  [%d] Extra %s\n", i + 1, meatsList[i]);
             }
-            System.out.print("Selection: ");
+            System.out.print("\n Selection: ");
             int extraMeatIdx = Integer.parseInt(scanner.nextLine()) - 1;
             if (extraMeatIdx >= 0 && extraMeatIdx < meatsList.length) {
                 s.addExtraMeat(meatsList[extraMeatIdx]);
@@ -141,12 +161,12 @@ public class UserInterface {
         }
         printLiveCart(s);
 
-        System.out.println("Select Base Premium Cheese:");
+        System.out.println(" ── SELECT YOUR CHEESE ──");
         for (int i = 0; i < cheesesList.length; i++) {
-            System.out.printf("%d) %s\n", i + 1, cheesesList[i]);
+            System.out.printf("  [%d] %s\n", i + 1, cheesesList[i]);
         }
-        System.out.println("5) No Cheese");
-        System.out.print("Selection: ");
+        System.out.println("  [5] No Cheese");
+        System.out.print("\n Selection: ");
         String cheeseChoice = scanner.nextLine();
         int cheeseIdx = Integer.parseInt(cheeseChoice) - 1;
 
@@ -155,13 +175,13 @@ public class UserInterface {
         }
         printLiveCart(s);
 
-        System.out.print("Add extra cheese? (yes/no): ");
+        System.out.print(" Add extra cheese? (yes/no): ");
         if (scanner.nextLine().equalsIgnoreCase("yes")) {
-            System.out.println("\nSelect extra cheese type to stack:");
+            System.out.println("\n ── STACK EXTRA CHEESE ──");
             for (int i = 0; i < cheesesList.length; i++) {
-                System.out.printf("%d) Extra %s\n", i + 1, cheesesList[i]);
+                System.out.printf("  [%d] Extra %s\n", i + 1, cheesesList[i]);
             }
-            System.out.print("Selection: ");
+            System.out.print("\n Selection: ");
             int extraCheeseIdx = Integer.parseInt(scanner.nextLine()) - 1;
             if (extraCheeseIdx >= 0 && extraCheeseIdx < cheesesList.length) {
                 s.addExtraCheese(cheesesList[extraCheeseIdx]);
@@ -170,11 +190,12 @@ public class UserInterface {
         printLiveCart(s);
 
         String[] veggiesList = {"Lettuce", "Tomatoes", "Onions", "Peppers", "Pickles", "Jalapenos", "Cucumbers"};
-        System.out.println("Select Veggies (Type numbers separated by commas, e.g., 1,2,5 or enter '0' for none):");
+        System.out.println(" ── FREE VEGGIE TOPPINGS ──");
+        System.out.println(" (Type numbers separated by commas, e.g., 1,2,5 or enter '0' for none)");
         for (int i = 0; i < veggiesList.length; i++) {
-            System.out.printf("%d) %s\n", i + 1, veggiesList[i]);
+            System.out.printf("  [%d] %s\n", i + 1, veggiesList[i]);
         }
-        System.out.print("Selection: ");
+        System.out.print("\n Selection: ");
         String vegInput = scanner.nextLine();
         if (!vegInput.trim().equals("0")) {
             String[] tokens = vegInput.split(",");
@@ -190,11 +211,12 @@ public class UserInterface {
         printLiveCart(s);
 
         String[] saucesList = {"Mayo", "Mustard", "Ketchup", "Ranch", "Thousand Island", "Vinaigrette"};
-        System.out.println("Select Sauces (Type numbers separated by commas, e.g., 2,4 or enter '0' for none):");
+        System.out.println(" ── SAUCES & DRESSINGS ──");
+        System.out.println(" (Type numbers separated by commas, e.g., 2,4 or enter '0' for none)");
         for (int i = 0; i < saucesList.length; i++) {
-            System.out.printf("%d) %s\n", i + 1, saucesList[i]);
+            System.out.printf("  [%d] %s\n", i + 1, saucesList[i]);
         }
-        System.out.print("Selection: ");
+        System.out.print("\n Selection: ");
         String sauceInput = scanner.nextLine();
         if (!sauceInput.trim().equals("0")) {
             String[] tokens = sauceInput.split(",");
@@ -209,26 +231,26 @@ public class UserInterface {
         }
         printLiveCart(s);
 
-        System.out.print("Toasted? (yes/no): ");
+        System.out.print(" Toast the sandwich? (yes/no): ");
         s.setToasted(scanner.nextLine().equalsIgnoreCase("yes"));
         printLiveCart(s);
 
         currentOrder.addItem(s);
-        System.out.println("Sando added to order tray!");
+        System.out.println(" » Success: Your order added to your order tray!");
     }
 
     private void addDrinkScreen() {
-        System.out.println("\nSelect Volume:");
-        System.out.println("1) Scott's Tot (Small)\n2) The Toby (Medium)\n3) Did I Stutter?! (Large)");
-        System.out.print("Selection: ");
+        System.out.println("\n ── SELECT VOLUME ──");
+        System.out.println("  [1] Scott's Tot (Small)\n  [2] The Toby (Medium)\n  [3] Did I Stutter?! (Large)");
+        System.out.print("\n Selection: ");
         String sizeChoice = scanner.nextLine();
         String size = "Small";
         if (sizeChoice.equals("2")) size = "Medium";
         else if (sizeChoice.equals("3")) size = "Large";
 
-        System.out.println("\nSelect Flavor:");
-        System.out.println("1) Schrute Farms Beet Juice (Fruit Punch)\n2) Ice Cold Coffee (Dr.Pepper) \n3) Ryan's Tears (Water)\n4) Wine from Robert California's Cellar (Grape Soda)");
-        System.out.print("Selection: ");
+        System.out.println("\n ── SELECT FLAVOR ──");
+        System.out.println("  [1] Schrute Farms Beet Juice (Fruit Punch)\n  [2] Ice Cold Coffee (Dr. Pepper) \n  [3] Ryan's Tears (Water)\n  [4] Wine from Robert California's Cellar (Grape Soda)");
+        System.out.print("\n Selection: ");
         String flavorChoice = scanner.nextLine();
         String flavor = "Fruit Punch";
         switch (flavorChoice) {
@@ -238,13 +260,13 @@ public class UserInterface {
         }
 
         currentOrder.addItem(new Drink(size, flavor));
-        System.out.println("Drink vended successfully.");
+        System.out.println(" » Success: Drink dropped into the dispenser.");
     }
 
     private void addChipsScreen() {
-        System.out.println("\nSelect Chips Bag:");
-        System.out.println("1) Prison Mike Salted\n2) Scranton Strangler Jalapeno\n3) Mose's Mesquite BBQ\n4) Jan's Baked Apple Chips");
-        System.out.print("Selection: ");
+        System.out.println("\n ── SELECT CHIPS BAG ──");
+        System.out.println("  [1] Prison Mike Salted Potato\n  [2] Scranton Strangler Jalapeno\n  [3] Mose's Mesquite BBQ\n  [4] Jan's Baked Apple Chips");
+        System.out.print("\n Selection: ");
         String chipChoice = scanner.nextLine();
         String type = "Salted";
         switch (chipChoice) {
@@ -254,78 +276,82 @@ public class UserInterface {
         }
 
         currentOrder.addItem(new Chips(type));
-        System.out.println("Chips dropped from the coil.");
+        System.out.println(" » Success: Chips dropped from the vending coil.");
     }
 
     private boolean checkoutScreen() {
         if (currentOrder.getItemCount() == 0) {
-            System.out.println("\nYour tray is empty! Add some items before checking out.");
+            System.out.println("\n [!] Your tray is empty! Add some items before checking out.");
             return false;
         }
 
-        // ─── PAGE 1: PAYMENT PROCESSING + FULL ORDER DETAILS ───────────────────
-        System.out.println("\n\n\n\n\n");
-        System.out.println("=================================================");
-        System.out.println("   PROCESSING PAYMENT...                         ");
-        System.out.println("=================================================\n");
+        // ─── PAGE 1: PROCESSING + INVOICE DETAILS ────────────────────────────
+        System.out.println("""
+            
+            ==========================================================
+                               PROCESSING PAYMENT...
+            ==========================================================
+            """);
 
         System.out.print(currentOrder.getOrderDetails());
 
-        System.out.println("=================================================");
-        System.out.print("  Confirm order and process payment? (yes/no): ");
+        System.out.println("==========================================================");
+        System.out.print(" Confirm order and process payment? (yes/no): ");
         String confirm = scanner.nextLine().trim().toLowerCase();
 
         if (!confirm.equals("yes")) {
-            System.out.println("\nOrder cancelled. Returning to the Annex.");
+            System.out.println("\n [!] Order cancelled. Returning to the Annex.");
             return false;
         }
 
-        // ─── PAGE 2: ORDER RECEIVED SLIP ───────────────────────────────────────
+        // ─── PAGE 2: FINAL RECEIPT SLIP ────────────────────────────────────────
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime readyTime = now.plusMinutes(10);
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hh:mm a");
 
-        // Generate a short confirmation ID from the timestamp
         DateTimeFormatter idFormat = DateTimeFormatter.ofPattern("MMddHHmm");
         String confirmationID = "#" + now.format(idFormat);
 
-        // Save the full receipt file in the background
         ReceiptManager.saveReceipt(currentOrder, confirmationID, now);
 
-        System.out.println("\n\n\n\n\n");
-        System.out.println("=================================================");
-        System.out.println("         ORDER RECEIVED — HERE'S YOUR SLIP       ");
-        System.out.println("=================================================");
-        System.out.println("  Confirmation:  " + confirmationID);
+        System.out.println("\n==========================================================");
+        System.out.println("            ORDER RECEIVED — CUSTOMER TICKET              ");
+        System.out.println("==========================================================");
+        System.out.println("  Ticket ID:     " + confirmationID);
         System.out.printf( "  Order Time:    %s%n", now.format(timeFormat));
-        System.out.printf( "  Pickup By:     %s  (approx. 10 mins)%n", readyTime.format(timeFormat));
-        System.out.println("-------------------------------------------------");
-        // Print itemized list (no prices)
-        System.out.println("  Your order:");
+        System.out.printf( "  Est. Pickup:   %s  (approx. 10 mins)%n", readyTime.format(timeFormat));
+        System.out.println("----------------------------------------------------------");
+        System.out.println("  Items Purchased:");
         for (String line : currentOrder.getItemNames()) {
-            System.out.println("    - " + line);
+            System.out.println("    • " + line);
         }
-        System.out.println("-------------------------------------------------");
-        System.out.printf( "  TOTAL DUE:     $%.2f%n", currentOrder.calculateTotal());
-        System.out.println("=================================================");
-        System.out.println("  Hold onto this slip & present at the counter.  ");
-        System.out.println("=================================================");
+        System.out.println("----------------------------------------------------------");
+        System.out.printf( "  TOTAL PAID:    $%.2f%n", currentOrder.calculateTotal());
+        System.out.println("==========================================================");
+        System.out.println("    Please present this ticket stub at the counter.       ");
+        System.out.println("==========================================================");
 
-        System.out.print("\nStaff: Press ENTER to confirm customer pickup.");
+        System.out.print("\n [Staff Action] Press ENTER to confirm customer pickup... ");
         scanner.nextLine();
 
-        // ─── PAGE 3: THANK YOU ─────────────────────────────────────────────────
-        System.out.println("\n\n\n\n\n");
-        System.out.println("=================================================");
-        System.out.println("           THANKS FOR VISITING !                 ");
-        System.out.println("=================================================");
-        System.out.println("  \"And that... is Dallas.\"                       ");
-        System.out.println("                                                  ");
-        System.out.println("  We'll catch you on the flippity flip !          ");
-        System.out.println("=================================================");
-        System.out.print("\nPress ENTER to return to the Annex.");
+        // ─── PAGE 3: OUTRO SCREEN ──────────────────────────────────────────────
+        System.out.println("""
+            
+            ==========================================================
+                             THANKS FOR VISITING!
+            ==========================================================
+              "And that... is Dallas."
+              
+              We'll catch you on the flippity flip!
+            ==========================================================
+            """);
+        System.out.print(" Press ENTER to return to the Annex.");
         scanner.nextLine();
 
         return true;
+    }
+
+    private void printInvalidNotice() {
+        System.out.println(" [!] Invalid option selection. Please try again.");
     }
 }
